@@ -1,0 +1,41 @@
+---
+import { getCollection, render } from 'astro:content';
+import PageLayout from '@/layouts/PageLayout.astro';
+import Container from '@/components/structural/Container.astro';
+import ChronicleLayout from '@/components/narrative/ChronicleLayout.astro';
+import { formatDate } from '@/utils/content';
+import { withBase } from '@/utils/paths';
+
+export async function getStaticPaths() {
+  const cronicas = await getCollection('cronicas');
+  return cronicas.map((cronica) => ({
+    params: { slug: cronica.slug },
+    props: { cronica },
+  }));
+}
+
+const { cronica } = Astro.props;
+const { Content } = await render(cronica);
+---
+
+<PageLayout
+  title={cronica.data.title}
+  description={cronica.data.description ?? cronica.data.title}
+>
+  <Container>
+    <ChronicleLayout
+      title={cronica.data.title}
+      date={formatDate(cronica.data.date)}
+      category={cronica.data.category}
+      description={cronica.data.description}
+    >
+      <Content />
+    </ChronicleLayout>
+
+    <nav class="border-t border-parchment-300 py-12 text-center" aria-label="Navegação da crônica">
+      <a href={withBase('/cronicas/')} class="text-ink-faint no-underline hover:text-sepia">
+        ← Voltar às Crônicas
+      </a>
+    </nav>
+  </Container>
+</PageLayout>

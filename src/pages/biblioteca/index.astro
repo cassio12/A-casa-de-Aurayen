@@ -1,0 +1,82 @@
+---
+import PageLayout from '@/layouts/PageLayout.astro';
+import Container from '@/components/structural/Container.astro';
+import Section from '@/components/structural/Section.astro';
+import Book from '@/components/narrative/Book.astro';
+import { contentCategories } from '@/config/navigation';
+import { getSortedEntries, formatDate } from '@/utils/content';
+import { withBase } from '@/utils/paths';
+
+const cronicas = await getSortedEntries('cronicas');
+
+const entriesByCategory: Record<string, typeof cronicas> = {
+  cronicas,
+};
+---
+
+<PageLayout
+  title="Biblioteca"
+  description="Acervo do universo de Aurayen — crônicas, personagens, raças, facções, mapas e eventos."
+>
+  <Section
+    title="Biblioteca"
+    subtitle="O acervo do universo. Explore cada coleção no seu próprio tempo."
+  >
+    <Container>
+      <div class="space-y-22">
+        {
+          contentCategories.map(({ id, label, description }) => {
+            const entries = entriesByCategory[id] ?? [];
+            const count = entries.length;
+
+            return (
+              <section id={id} class="scroll-mt-24">
+                <header class="mb-8">
+                  <h3 class="mb-2 font-display text-2xl">{label}</h3>
+                  <p class="mb-0 text-ink-faint">
+                    {description}
+                    {count > 0 && (
+                      <span>
+                        {' '}
+                        · {count} {count === 1 ? 'registro' : 'registros'}
+                      </span>
+                    )}
+                  </p>
+                </header>
+
+                {entries.length === 0 ? (
+                  <p class="text-ink-faint italic">
+                    Esta seção será preenchida em breve.
+                  </p>
+                ) : (
+                  <div class="grid gap-6 md:grid-cols-2">
+                    {entries.map((entry) => (
+                      <Book>
+                        <a
+                          href={withBase(`/cronicas/${entry.slug}/`)}
+                          class="block no-underline"
+                        >
+                          <p class="mb-2 text-xs uppercase tracking-[0.15em] text-ink-faint">
+                            {formatDate(entry.data.date)}
+                          </p>
+                          <h4 class="mb-2 font-display text-lg text-ink">
+                            {entry.data.title}
+                          </h4>
+                          {entry.data.description && (
+                            <p class="mb-0 text-base text-ink-faint">
+                              {entry.data.description}
+                            </p>
+                          )}
+                        </a>
+                      </Book>
+                    ))}
+                  </div>
+                )}
+              </section>
+            );
+          })
+        }
+      </div>
+    </Container>
+  </Section>
+</PageLayout>
