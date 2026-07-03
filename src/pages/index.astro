@@ -1,0 +1,68 @@
+---
+import PageLayout from '@/layouts/PageLayout.astro';
+import Container from '@/components/structural/Container.astro';
+import Section from '@/components/structural/Section.astro';
+import Scroll from '@/components/narrative/Scroll.astro';
+import Book from '@/components/narrative/Book.astro';
+import { contentCategories } from '@/config/navigation';
+import { withBase } from '@/utils/paths';
+---
+
+<PageLayout
+  title="Casa de Aurayen"
+  description="Portal oficial do universo de Aurayen. Explore crônicas, personagens, mapas e a jornada de Shinsei Hoshino."
+>
+  <Section class="pt-22">
+    <Container>
+      <div class="mx-auto max-w-prose text-center">
+        <p class="mb-6 text-sm uppercase tracking-[0.25em] text-ink-faint">
+          Universo de Aurayen
+        </p>
+        <h1 class="mb-8">Casa de Aurayen</h1>
+        <Scroll>
+          <p class="mb-0 text-lg leading-relaxed text-ink-muted">
+            Todo viajante que cruza estas páginas deixa de ser apenas um leitor.
+            Torna-se um peregrino em busca do próprio aperfeiçoamento.
+          </p>
+        </Scroll>
+      </div>
+    </Container>
+  </Section>
+
+  <Section
+    title="Explore o universo"
+    subtitle="Cada seção é uma porta. Atravesse-as no seu próprio ritmo."
+  >
+    <Container>
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {
+          contentCategories.map(({ label, description, href }) => (
+            <Book>
+              <a href={withBase(href)} class="block no-underline">
+                <h3 class="mb-3 font-display text-lg text-ink">{label}</h3>
+                <p class="mb-0 text-base text-ink-faint">{description}</p>
+              </a>
+            </Book>
+          ))
+        }
+      </div>
+    </Container>
+  </Section>
+
+  <Section class="pb-22">
+    <Container>
+      <div class="mx-auto max-w-prose text-center">
+        <p class="text-ink-faint">
+          A Casa está em construção. Novas crônicas e descobertas serão
+          adicionadas gradualmente.
+        </p>
+        <a
+          href={withBase('/cronicas/')}
+          class="mt-6 inline-block text-sepia-dark no-underline hover:text-sepia"
+        >
+          Começar pelas Crônicas →
+        </a>
+      </div>
+    </Container>
+  </Section>
+</PageLayout>

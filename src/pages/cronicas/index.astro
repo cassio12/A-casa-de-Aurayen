@@ -1,0 +1,50 @@
+---
+import PageLayout from '@/layouts/PageLayout.astro';
+import Container from '@/components/structural/Container.astro';
+import Section from '@/components/structural/Section.astro';
+import Book from '@/components/narrative/Book.astro';
+import { getSortedEntries, formatDate } from '@/utils/content';
+import { withBase } from '@/utils/paths';
+
+const cronicas = await getSortedEntries('cronicas');
+---
+
+<PageLayout
+  title="Crônicas"
+  description="Relatos e registros da jornada através do universo de Aurayen."
+>
+  <Section title="Crônicas" subtitle="Relatos da jornada e do universo de Aurayen.">
+    <Container>
+      {
+        cronicas.length === 0 ? (
+          <p class="text-center text-ink-faint">
+            Nenhuma crônica publicada ainda.
+          </p>
+        ) : (
+          <div class="grid gap-8 md:grid-cols-2">
+            {cronicas.map((cronica) => (
+              <Book>
+                <a
+                  href={withBase(`/cronicas/${cronica.slug}/`)}
+                  class="block no-underline"
+                >
+                  <p class="mb-2 text-xs uppercase tracking-[0.15em] text-ink-faint">
+                    {cronica.data.category} · {formatDate(cronica.data.date)}
+                  </p>
+                  <h3 class="mb-3 font-display text-xl text-ink">
+                    {cronica.data.title}
+                  </h3>
+                  {cronica.data.description && (
+                    <p class="mb-0 text-base text-ink-faint">
+                      {cronica.data.description}
+                    </p>
+                  )}
+                </a>
+              </Book>
+            ))}
+          </div>
+        )
+      }
+    </Container>
+  </Section>
+</PageLayout>

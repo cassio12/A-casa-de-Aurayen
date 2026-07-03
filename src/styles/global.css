@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-parchment-100 font-serif text-ink antialiased;
+    font-size: 1.125rem;
+    line-height: 1.75;
+  }
+
+  ::selection {
+    @apply bg-sepia-light/30 text-ink;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display font-normal tracking-wide text-ink;
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl;
+  }
+
+  h2 {
+    @apply text-2xl md:text-3xl;
+  }
+
+  h3 {
+    @apply text-xl md:text-2xl;
+  }
+
+  a {
+    @apply text-sepia-dark underline-offset-4 transition-colors duration-200;
+  }
+
+  a:hover {
+    @apply text-sepia;
+  }
+
+  p {
+    @apply mb-6 text-ink-muted;
+  }
+
+  blockquote {
+    @apply my-8 border-l-2 border-sepia-light pl-6 italic text-ink-muted;
+  }
+}
+
+@layer components {
+  .prose-content {
+    @apply max-w-prose mx-auto;
+  }
+
+  .prose-content h2 {
+    @apply mt-12 mb-6;
+  }
+
+  .prose-content h3 {
+    @apply mt-8 mb-4;
+  }
+
+  .prose-content ul,
+  .prose-content ol {
+    @apply mb-6 ml-6 list-outside text-ink-muted;
+  }
+
+  .prose-content ul {
+    @apply list-disc;
+  }
+
+  .prose-content ol {
+    @apply list-decimal;
+  }
+
+  .prose-content li {
+    @apply mb-2;
+  }
+
+  .prose-content hr {
+    @apply my-12 border-parchment-300;
+  }
+}

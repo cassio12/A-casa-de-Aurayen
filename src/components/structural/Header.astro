@@ -1,0 +1,51 @@
+---
+import { mainNavigation } from '@/config/navigation';
+import { withBase } from '@/utils/paths';
+
+const currentPath = Astro.url.pathname;
+const base = import.meta.env.BASE_URL;
+const normalizedPath =
+  base !== '/' ? currentPath.replace(base, '/') || '/' : currentPath;
+---
+
+<header class="border-b border-parchment-300/60 bg-parchment-50/80 backdrop-blur-sm">
+  <nav
+    class="mx-auto flex max-w-content items-center justify-between px-6 py-6 md:px-8"
+    aria-label="Navegação principal"
+  >
+    <a
+      href={withBase('/')}
+      class="font-display text-lg tracking-widest text-ink no-underline hover:text-sepia md:text-xl"
+    >
+      Casa de Aurayen
+    </a>
+
+    <ul class="flex items-center gap-6 md:gap-10">
+      {
+        mainNavigation.map(({ label, href }) => {
+          const isActive =
+            href === '/'
+              ? normalizedPath === href || normalizedPath === ''
+              : normalizedPath.startsWith(href);
+
+          return (
+            <li>
+              <a
+                href={withBase(href)}
+                class:list={[
+                  'text-sm tracking-wide no-underline transition-colors md:text-base',
+                  isActive
+                    ? 'text-sepia-dark'
+                    : 'text-ink-faint hover:text-ink-muted',
+                ]}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                {label}
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </nav>
+</header>

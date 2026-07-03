@@ -1,0 +1,29 @@
+---
+interface Props {
+  title: string;
+  date: string;
+  category: string;
+  description?: string;
+}
+
+const { title, date, category, description } = Astro.props;
+---
+
+<article class="py-16 md:py-22">
+  <header class="mb-16 text-center">
+    <p class="mb-4 text-sm uppercase tracking-[0.2em] text-ink-faint">
+      {category} · {date}
+    </p>
+    <h1 class="mb-6">{title}</h1>
+    {
+      description && (
+        <p class="mx-auto max-w-prose text-lg text-ink-muted">{description}</p>
+      )
+    }
+    <hr class="mx-auto mt-12 w-16 border-sepia-light" />
+  </header>
+
+  <div class="prose-content">
+    <slot />
+  </div>
+</article>
