@@ -6,8 +6,8 @@ import tailwind from '@astrojs/tailwind';
 const base = process.env.BASE_PATH ?? '/';
 
 export default defineConfig({
-  site: process.env.SITE_URL ?? 'https://example.github.io',
-  base,
+  site: process.env.SITE_URL ?? 'https://cassio12.github.io',
+  base: '/aurayen',
   trailingSlash: 'always',
   integrations: [react(), tailwind()],
   markdown: {
