@@ -20,6 +20,33 @@ export default {
           light: '#A69076',
           dark: '#6B5740',
         },
+        hall: {
+          wood: {
+            DEFAULT: '#3D2E1F',
+            light: '#5C4A38',
+            dark: '#2A1F14',
+          },
+          stone: {
+            DEFAULT: '#4A4D52',
+            light: '#6B6E73',
+            dark: '#2E3034',
+          },
+          bronze: {
+            DEFAULT: '#8B6914',
+            light: '#A8842E',
+            dark: '#6B5010',
+          },
+          gold: {
+            DEFAULT: '#B8963E',
+            light: '#D4B56A',
+            dark: '#8A7030',
+          },
+          deep: '#1A2438',
+          moss: '#3D4F3A',
+          ember: '#C4783A',
+          flame: '#E8A04C',
+          ivory: '#D4C9B0',
+        },
       },
       fontFamily: {
         serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
@@ -32,6 +59,11 @@ export default {
       maxWidth: {
         prose: '42rem',
         content: '56rem',
+      },
+      boxShadow: {
+        ember: '0 0 60px 20px rgba(196, 120, 58, 0.25)',
+        'ember-soft': '0 0 40px 10px rgba(232, 160, 76, 0.15)',
+        portal: 'inset 0 0 30px rgba(0, 0, 0, 0.6)',
       },
     },
   },

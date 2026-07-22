@@ -1,0 +1,27 @@
+---
+import type { HallEnvironment } from '@/config/environments';
+import { positionClasses } from '@/config/environments';
+import { withBase } from '@/utils/paths';
+
+interface Props {
+  environment: HallEnvironment;
+}
+
+const { environment } = Astro.props;
+const { label, epithet, href, available, position } = environment;
+const positionClass = positionClasses[position];
+const Tag = available ? 'a' : 'div';
+---
+
+<Tag
+  class:list={['hall-portal', positionClass, !available && 'hall-portal--unavailable']}
+  href={available ? withBase(href) : undefined}
+  aria-label={available ? `Atravessar para ${label}` : `${label} — em breve`}
+  {...(!available && { 'aria-disabled': true })}
+>
+  <div class="hall-portal__arch"></div>
+  <div class="hall-portal__plaque">
+    <span class="hall-portal__label">{label}</span>
+    <span class="hall-portal__epithet">{epithet}</span>
+  </div>
+</Tag>

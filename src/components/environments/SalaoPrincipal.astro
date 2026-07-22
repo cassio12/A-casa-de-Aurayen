@@ -1,0 +1,24 @@
+---
+import HallBackdrop from '@/components/environments/HallBackdrop.astro';
+import CentralEmblem from '@/components/environments/CentralEmblem.astro';
+import Hearth from '@/components/environments/Hearth.astro';
+import EnvironmentPortal from '@/components/environments/EnvironmentPortal.astro';
+import { hallEnvironments } from '@/config/environments';
+---
+
+<div class="hall-root" role="main" aria-label="Salão Principal da Casa de Aurayen">
+  <HallBackdrop />
+
+  <div class="hall-scene">
+    {
+      hallEnvironments.map((environment) => (
+        <EnvironmentPortal environment={environment} />
+      ))
+    }
+
+    <div class="hall-center">
+      <CentralEmblem />
+      <Hearth />
+    </div>
+  </div>
+</div>
